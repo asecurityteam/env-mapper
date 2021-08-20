@@ -1,7 +1,7 @@
 # Environment Variable Mapper
 [![GoDoc](https://godoc.org/github.com/asecurityteam/env-mapper?status.svg)](https://godoc.org/github.com/asecurityteam/env-mapper)
-[![Build Status](https://travis-ci.com/asecurityteam/env-mapper.png?branch=master)](https://travis-ci.com/asecurityteam/env-mapper)
-[![codecov.io](https://codecov.io/github/asecurityteam/env-mapper/coverage.svg?branch=master)](https://codecov.io/github/asecurityteam/env-mapper?branch=master)
+[![Build Status](https://travis-ci.com/asecurityteam/env-mapper.png?branch=main)](https://travis-ci.com/asecurityteam/env-mapper)
+[![codecov.io](https://codecov.io/github/asecurityteam/env-mapper/coverage.svg?branch=main)](https://codecov.io/github/asecurityteam/env-mapper?branch=main)
 
 <https://github.com/asecurityteam/env-mapper>
 
