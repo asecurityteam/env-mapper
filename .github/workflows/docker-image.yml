@@ -38,13 +38,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Docker meta
         id: METAID # used in the next step
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           # list of Docker images to use as base name for tags
           images: |
             asecurityteam/env-mapper
           # Docker tags based on the following events/attributes
           tags: |
+            # set latest tag for default branch
+            type=raw,value=latest,enable={{is_default_branch}}
             type=schedule
             type=ref,event=branch
             type=ref,event=pr
