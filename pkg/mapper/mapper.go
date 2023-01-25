@@ -12,6 +12,7 @@ type envMapping struct {
 	From string
 }
 
+// Config is used to configure the complex mapper via flags parsed in main.go
 type Config struct {
 	EnvSeparator string
 	ComplexVar   bool
@@ -52,7 +53,7 @@ func complexResolver(unsubbed string) string {
 	//Check that we have balanced delimiters before attempting
 	if strings.Count(unsubbed, delim)%2 == 0 {
 		subbed := unsubbed
-		for strings.Index(subbed, delim) >= 0 {
+		for strings.Contains(subbed, delim) {
 			//Get whatever was before the substitution needed
 			pre, left, _ := strings.Cut(subbed, delim)
 			//Get the environment variable to sub and whatever was left

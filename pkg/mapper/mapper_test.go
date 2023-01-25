@@ -286,7 +286,10 @@ func TestComplexResolver(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			setEnvMap(t, tt.envVars)
+			err := setEnvMap(t, tt.envVars)
+			if err != nil {
+				t.Error(err)
+			}
 			subbed := complexResolver(tt.unsubbed)
 			if strings.Compare(subbed, tt.expected) != 0 {
 				t.Errorf("Complex resolver test expected %s but got %s", tt.expected, subbed)
