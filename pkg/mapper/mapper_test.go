@@ -3,6 +3,7 @@ package mapper
 import (
 	"reflect"
 	"sort"
+	"strings"
 	"testing"
 )
 
@@ -166,6 +167,13 @@ func Test_resolveMappings(t *testing.T) {
 	}
 }
 
+func defaultConf() Config {
+	return Config{
+		EnvSeparator: ":",
+		ComplexVar:   false,
+	}
+}
+
 func TestNewCommandWithOverrides(t *testing.T) {
 	type args struct {
 		inputArgs []string
@@ -215,7 +223,7 @@ func TestNewCommandWithOverrides(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := CommandWithEnvOverrides(tt.args.inputArgs, tt.args.inputEnv)
+			got, err := CommandWithEnvOverrides(defaultConf(), tt.args.inputArgs, tt.args.inputEnv)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CommandWithEnvOverrides() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -232,6 +240,59 @@ func TestNewCommandWithOverrides(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got.Env, tt.wantEnv) {
 				t.Errorf("CommandWithEnvOverrides().Path got = %v, want %v", got.Env, tt.wantEnv)
+			}
+		})
+	}
+}
+
+// setEnvMap expects an array of vars in the form of "TARGET=SOURCE" and sets them with testing.SetEnv
+func setEnvMap(t *testing.T, envVars []string) error {
+	split, err := parseMappings(envVars, "=")
+	if err != nil {
+		return err
+	}
+	for _, mapping := range split {
+		t.Setenv(mapping.To, mapping.From)
+	}
+	return nil
+}
+
+func TestComplexResolver(t *testing.T) {
+	tests := []struct {
+		name     string
+		unsubbed string
+		envVars  []string
+		expected string
+	}{
+		{
+			"successful complex sub",
+			"cat,||SOURCE1||:||SOURCE2||",
+			[]string{"SOURCE1=foo", "SOURCE2=bar"},
+			"cat,foo:bar",
+		},
+		{
+			"unbalanced complex sub",
+			"cat,SOURCE1||:||SOURCE2||",
+			[]string{"SOURCE1=dog", "SOURCE2=fish"},
+			"cat,SOURCE1||:||SOURCE2||",
+		},
+		{
+			"unset sources",
+			"||SOURCE1||:||SOURCE2||",
+			[]string{"SOURCE1=ferret"},
+			"ferret:",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := setEnvMap(t, tt.envVars)
+			if err != nil {
+				t.Error(err)
+			}
+			subbed := complexResolver(tt.unsubbed)
+			if strings.Compare(subbed, tt.expected) != 0 {
+				t.Errorf("Complex resolver test expected %s but got %s", tt.expected, subbed)
 			}
 		})
 	}
