@@ -27,7 +27,7 @@ func main() {
 		EnvSeparator: envSep,
 		ComplexVar:   complexVar,
 	}
-	cmd, err := mapper.CommandWithEnvOverrides(conf, os.Args[1:], os.Environ())
+	cmd, err := mapper.CommandWithEnvOverrides(conf, flag.Args(), os.Environ()) // flag.Args() gives positional arguments left after parsing defined flags
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n\n%s", err.Error(), usage)
 		os.Exit(1)
