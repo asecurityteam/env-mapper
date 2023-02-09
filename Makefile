@@ -1,7 +1,7 @@
 TAG := $(shell git rev-parse --short HEAD)
 DIR := $(shell pwd -L)
 
-SDCLI_VERSION:=v3.0.0
+SDCLI_VERSION:=v1
 SDCLI:=docker run -ti --mount src="$(DIR)",target="$(DIR)",type="bind" -w "$(DIR)" \
 	asecurityteam/sdcli:$(SDCLI_VERSION)
 
@@ -17,7 +17,8 @@ lint:
 test: dep
 	$(SDCLI) go test
 
-integration: ;
+integration:
+	test/run-tests.sh
 
 coverage:
 	$(SDCLI) go coverage
