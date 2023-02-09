@@ -1,6 +1,6 @@
 FROM asecurityteam/sdcli:v1 AS BUILDER
-RUN mkdir -p /go/src/github.com/asecurityteam/awsconfig-filterd
-WORKDIR /go/src/github.com/asecurityteam/awsconfig-filterd
+RUN mkdir -p /go/src/github.com/asecurityteam/env-mapper
+WORKDIR /go/src/github.com/asecurityteam/env-mapper
 COPY --chown=sdcli:sdcli . .
 RUN sdcli go dep
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o /opt/app main.go
@@ -17,7 +17,7 @@ RUN zip -r -0 /zoneinfo.zip .
 ###################################
 
 FROM scratch
-COPY --from=BUILDER /opt/app .
+COPY --from=BUILDER --chown=0:0 /opt/app .
 COPY --from=CERTS /zoneinfo.zip /
 COPY --from=CERTS /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
