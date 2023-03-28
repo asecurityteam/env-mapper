@@ -1,0 +1,28 @@
+@startuml
+skinparam UsecaseFontSize 18
+skinparam backgroundColor #silver
+
+
+(Do you have a docker image\n that accepts configuration\n in environment variables?) as (image)
+(Env-mapper is of no use to you) as (no)
+(Does the platform where you run this image\nonly provide the required settings in environment variables\n with different names from what image accepts?) as (platform)
+(Does the image contain shell like /bin/sh ?) as (has-shell)
+(Do you have an easy way\nto introduce code changes to the image?) as (author)
+(Use shell script to remap variables) as (use-shell)
+(Do you have any concatenations or text substitutions,\nlike turning HOST and PORT variables into URL variable?) as (subst)
+(Use env-mapper) as (use)
+(Use env-mapper in complex mode) as (use-complex)
+(Modify source code\n to accept alternative mappings) as (code)
+(image)-[#green]->(platform) : Yes
+(image)-[#red]>(no) : No
+(platform)-[#green]->(has-shell) : Yes
+(platform)-[#red]>(no) : No
+(has-shell)-[#green]->(use-shell) : Yes
+(use-shell)->(no)
+(has-shell)-[#red]-->(author) : No
+(author)-[#green]>(code) : Yes
+(code)->(no)
+(author)-[#red]->(subst) : No
+(subst)-[#red]>(use) : No
+(subst)-[#green]->(use-complex): Yes
+@enduml
