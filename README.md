@@ -20,6 +20,7 @@
 
 <a id="markdown-overview" name="overview"></a>
 ## Overview
+![When and why do I need Env-Mapper?](doc/do-i-need-env-mapper.png)
 
 ## Quick Start
 [Usage instructions](usage.md)
