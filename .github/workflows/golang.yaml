@@ -11,6 +11,9 @@ jobs:
         run: make dep
       - name: Lint
         run: make lint
+      - name: Coverage Setup 
+        # workaround for permissions with contaner attempting to create directory
+        run: mkdir .coverage && chmod 777 .coverage
       - name: Unit Tests
         run: make test
       - name: Integration Tests
