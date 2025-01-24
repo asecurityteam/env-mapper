@@ -12,16 +12,13 @@ jobs:
       - name: Lint
         run: make lint
       - name: Coverage Setup 
-        # workaround for permissions with contaner attempting to create directory
+        # workaround for permissions with container attempting to create directory
         run: mkdir .coverage && chmod 777 .coverage
       - name: Unit Tests
         run: make test
       - name: Integration Tests
         run: make integration
-      - name: Test Coverage
-        run: make coverage
-      - name: Upload Coverage
-        uses: codecov/codecov-action@v4
-        with:
-          files: .coverage/combined.cover.out
-          token: ${{ secrets.CODECOV_TOKEN }} 
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
