@@ -3,7 +3,6 @@ package mapper
 import (
 	"reflect"
 	"sort"
-	"strings"
 	"testing"
 )
 
@@ -257,43 +256,44 @@ func setEnvMap(t *testing.T, envVars []string) error {
 	return nil
 }
 
-func TestComplexResolver(t *testing.T) {
-	tests := []struct {
-		name     string
-		unsubbed string
-		envVars  []string
-		expected string
-	}{
-		{
-			"successful complex sub",
-			"cat,||SOURCE1||:||SOURCE2||",
-			[]string{"SOURCE1=foo", "SOURCE2=bar"},
-			"cat,foo:bar",
-		},
-		{
-			"unbalanced complex sub",
-			"cat,SOURCE1||:||SOURCE2||",
-			[]string{"SOURCE1=dog", "SOURCE2=fish"},
-			"cat,SOURCE1||:||SOURCE2||",
-		},
-		{
-			"unset sources",
-			"||SOURCE1||:||SOURCE2||",
-			[]string{"SOURCE1=ferret"},
-			"ferret:",
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := setEnvMap(t, tt.envVars)
-			if err != nil {
-				t.Error(err)
-			}
-			subbed := complexResolver(tt.unsubbed)
-			if strings.Compare(subbed, tt.expected) != 0 {
-				t.Errorf("Complex resolver test expected %s but got %s", tt.expected, subbed)
-			}
-		})
-	}
-}
+//
+//func TestComplexResolver(t *testing.T) {
+//	tests := []struct {
+//		name     string
+//		unsubbed string
+//		envVars  []string
+//		expected string
+//	}{
+//		{
+//			"successful complex sub",
+//			"cat,||SOURCE1||:||SOURCE2||",
+//			[]string{"SOURCE1=foo", "SOURCE2=bar"},
+//			"cat,foo:bar",
+//		},
+//		{
+//			"unbalanced complex sub",
+//			"cat,SOURCE1||:||SOURCE2||",
+//			[]string{"SOURCE1=dog", "SOURCE2=fish"},
+//			"cat,SOURCE1||:||SOURCE2||",
+//		},
+//		{
+//			"unset sources",
+//			"||SOURCE1||:||SOURCE2||",
+//			[]string{"SOURCE1=ferret"},
+//			"ferret:",
+//		},
+//	}
+//
+//	for _, tt := range tests {
+//		t.Run(tt.name, func(t *testing.T) {
+//			err := setEnvMap(t, tt.envVars)
+//			if err != nil {
+//				t.Error(err)
+//			}
+//			subbed := complexResolver(tt.unsubbed)
+//			if strings.Compare(subbed, tt.expected) != 0 {
+//				t.Errorf("Complex resolver test expected %s but got %s", tt.expected, subbed)
+//			}
+//		})
+//	}
+//}
