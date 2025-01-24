@@ -2,6 +2,7 @@ package mapper
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
@@ -128,4 +129,48 @@ func CommandWithEnvOverrides(conf Config, inputArgs []string, inputEnv []string)
 	command := exec.Command(cmdPath, cmdArgs...)
 	command.Env = append(inputEnv, envOverrides...) //envOverrides take precedence
 	return command, nil
+}
+
+// Compare returns an integer comparing the two byte slices,
+// lexicographically.
+// The result will be 0 if a == b, -1 if a < b, and +1 if a > b
+func Compare(a, b []byte) int {
+	for i := 0; i < len(a) && i < len(b); i++ {
+		switch {
+		case a[i] > b[i]:
+			return 1
+		case a[i] < b[i]:
+			return -1
+		}
+	}
+	switch {
+	case len(a) > len(b):
+		return 1
+	case len(a) < len(b):
+		return -1
+	}
+	return 0
+}
+
+// Contents returns the file's contents as a string.
+func Contents(filename string) (string, error) {
+	f, err := os.Open(filename)
+	if err != nil {
+		return "", err
+	}
+	defer f.Close() // f.Close will run when we're finished.
+
+	var result []byte
+	buf := make([]byte, 100)
+	for {
+		n, err := f.Read(buf[0:])
+		result = append(result, buf[0:n]...) // append is discussed later.
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			return "", err // f will be closed if we return here.
+		}
+	}
+	return string(result), nil // f will be closed if we return here.
 }
