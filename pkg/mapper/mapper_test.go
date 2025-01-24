@@ -245,16 +245,16 @@ func TestNewCommandWithOverrides(t *testing.T) {
 }
 
 // setEnvMap expects an array of vars in the form of "TARGET=SOURCE" and sets them with testing.SetEnv
-func setEnvMap(t *testing.T, envVars []string) error {
-	split, err := parseMappings(envVars, "=")
-	if err != nil {
-		return err
-	}
-	for _, mapping := range split {
-		t.Setenv(mapping.To, mapping.From)
-	}
-	return nil
-}
+//func setEnvMap(t *testing.T, envVars []string) error {
+//	split, err := parseMappings(envVars, "=")
+//	if err != nil {
+//		return err
+//	}
+//	for _, mapping := range split {
+//		t.Setenv(mapping.To, mapping.From)
+//	}
+//	return nil
+//}
 
 //
 //func TestComplexResolver(t *testing.T) {
