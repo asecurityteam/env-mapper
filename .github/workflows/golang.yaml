@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+  pull_request: #sonar refuses to display branch analysis results on Free plan even for OSS
+    types: [opened, synchronize, reopened]
 
 jobs:
   golang:
