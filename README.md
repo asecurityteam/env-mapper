@@ -1,7 +1,16 @@
 # Environment Variable Mapper
 [![GoDoc](https://godoc.org/github.com/asecurityteam/env-mapper?status.svg)](https://godoc.org/github.com/asecurityteam/env-mapper)
-[![Build Status](https://api.travis-ci.com/asecurityteam/env-mapper.svg?branch=main)](https://app.travis-ci.com/github/asecurityteam/env-mapper)
-[![codecov.io](https://codecov.io/github/asecurityteam/env-mapper/coverage.svg?branch=main)](https://codecov.io/github/asecurityteam/env-mapper?branch=main)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=bugs)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=code_smells)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=coverage)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=ncloc)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=alert_status)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=security_rating)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=sqale_index)](https://sonarcloud.io/dashboard?id=env-mapper)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=env-mapper&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=env-mapper)
 
 <https://github.com/asecurityteam/env-mapper>
 
